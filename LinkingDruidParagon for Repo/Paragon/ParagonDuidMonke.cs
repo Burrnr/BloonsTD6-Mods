@@ -2,7 +2,7 @@
 
 
 using Assets.Scripts.Unity.UI_New.InGame;
-
+using static Assets.Scripts.Simulation.Bloons.Behaviors.DamageOverTimeCustom;
 using Assets.Scripts.Models.Towers;
 using Assets.Scripts.Unity;
 using Assets.Scripts.Utils;
@@ -32,6 +32,7 @@ using Assets.Scripts.Models.Towers.Behaviors.Abilities.Behaviors;
 using Assets.Scripts.Models.Towers.Weapons;
 using UnhollowerBaseLib;
 using Assets.Scripts.Models.Towers.Upgrades;
+using static Assets.Scripts.Simulation.Towers.Weapons.Weapon;
 using BTD_Mod_Helper;
 using BTD_Mod_Helper.Api.Towers;
 using NinjaKiwi.Common;
@@ -41,6 +42,7 @@ using Assets.Scripts.Unity.Display;
 using BTD_Mod_Helper.Api;
 using Assets.Scripts.Simulation.Towers;
 using Assets.Scripts.Unity.Towers.Projectiles.Behaviors;
+using Assets.Scripts.Models.GenericBehaviors;
 
 namespace LinkingDruidParagon.Paragon
 {
@@ -50,12 +52,12 @@ namespace LinkingDruidParagon.Paragon
         {
             public override string BaseTower => "Druid-005";
         }
-        public class SuperSpiritOfWrathTower : ModParagonUpgrade<Druidparagon>
+        public class GodSpiritOfNature : ModParagonUpgrade<Druidparagon>
         {
-            public override string Description => "A True Force Of Nature.";
-            public override string Icon => "SuperSpiritOfTheForest_Icon";
-            public override string Portrait => "SuperSpiritOfWrath_Portrait";
-            public override string DisplayName => "Super Spirit Of Wrath";
+            public override string Description => "So powerful, God had to be summoned to use the power.";
+            public override string Icon => "GodSpiritOfTheForest_Icon";
+            public override string Portrait => "GodSpiritOfWrath_Portrait";
+            public override string DisplayName => "God, Spirit Of Nature";
             public override int Cost => 4000000;
             
 
@@ -64,11 +66,23 @@ namespace LinkingDruidParagon.Paragon
                 var boomerangParagon = Game.instance.model.GetTowerFromId("BoomerangMonkey-Paragon").Duplicate();
                 towerModel.AddBehavior(boomerangParagon.GetBehavior<CreateSoundOnAttachedModel>());
                 var attackModel = towerModel.GetAttackModel();
-                attackModel.weapons[0].projectile.pierce = 125.0f;
-                attackModel.weapons[0].Rate *= 0.09f;
-                
-                
                 var projectileModel = attackModel.weapons[0].projectile;
+
+                // super storm stuff
+                var SuperStormWeapon = Game.instance.model.GetTowerFromId("Druid-500").GetWeapon(3);
+                SuperStormWeapon.projectile.pierce *= 10;
+                SuperStormWeapon.Rate *= 0.5f;
+                attackModel.AddWeapon(SuperStormWeapon);
+
+                // vines
+                var ForestVines = Game.instance.model.GetTowerFromId("Druid-050").GetBehavior<SpiritOfTheForestModel>().Duplicate();
+                var ForestVineStats = ForestVines.GetDescendant<DamageOverTimeCustomModel>();
+                ForestVineStats.intervalFrames = 1;
+                ForestVineStats.immuneBloonProperties = BloonProperties.None;
+                towerModel.AddBehavior(ForestVines);
+                
+                // normal stuff
+                attackModel.weapons[0].Rate *= 0.09f;
                 
                 attackModel.weapons[0].projectile.GetDamageModel().damage = 1200.0f;
                 projectileModel.GetDamageModel().immuneBloonProperties = BloonProperties.None;
@@ -82,7 +96,9 @@ namespace LinkingDruidParagon.Paragon
         
         public class SuperSpiritOfWrathDisplay : ModTowerDisplay<Druidparagon>
         {
-            public override string BaseDisplay => GetDisplay(TowerType.Druid, 0, 0, 5);
+            public override string BaseDisplay =>
+            Game.instance.model.GetTower(TowerType.SuperMonkey, 5).GetAttackModel().GetBehavior<DisplayModel>().display;
+
 
             public override bool UseForTower(int[] tiers)
             {
@@ -97,9 +113,10 @@ namespace LinkingDruidParagon.Paragon
                 // node.SaveMeshTexture();
                 foreach (var renderer in node.genericRenderers)
                 {
-                    renderer.material.mainTexture = GetTexture("SuperSpiritOfWrathDisplay");
+                    renderer.material.mainTexture = GetTexture("GodSpiritOfWrathDisplay");
                 }
             }
         }
+        
     }
 }

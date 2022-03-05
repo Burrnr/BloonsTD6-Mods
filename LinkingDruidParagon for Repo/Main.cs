@@ -9,7 +9,7 @@ using BTD_Mod_Helper.Extensions;
 using Il2CppSystem.Collections.Generic;
 using MelonLoader;
 
-[assembly: MelonInfo(typeof(LinkingDruidParagon.LinkingDruidParagonMain), "LinkingDruidParagon", "1.0.0", "Burrnr")]
+[assembly: MelonInfo(typeof(LinkingDruidParagon.LinkingDruidParagonMain), "LinkingDruidParagon", "1.1.0", "Burrnr")]
 [assembly: MelonGame("Ninja Kiwi", "BloonsTD6")]
 namespace LinkingDruidParagon
 {
@@ -20,10 +20,10 @@ namespace LinkingDruidParagon
 
 		// As an alternative to a GithubReleaseURL, a direct link to a web-hosted version of the .cs file
 		// that has the "MelonInfo" attribute with the version of your mod
-		// public override string MelonInfoCsURL => "https://raw.githubusercontent.com/doombubbles/BTD6-Mods/main/MegaKnowledge/Main.cs";
+		public override string MelonInfoCsURL => "https://raw.githubusercontent.com/Burrnr/BTD6-Mods/main/LinkingDruidParagon%20for%20Repo/Main.cs";
 
 		// The link to your normal GitHub Releases page if you're using those, or a direct link to your dll file
-		 public override string LatestURL => "https://github.com/Burrnr/BloonsTD6-Mods/LinkingDruidParagon.dll ";
+		 public override string LatestURL => "https://github.com/Burrnr/BloonsTD6-Mods/blob/main/LinkingDruidParagon%20for%20Repo/LinkingDruidParagon.dll";
 
 
 		

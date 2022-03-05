@@ -76,14 +76,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Paragon\DruidParagonProjectile_Display.png" />
+    <EmbeddedResource Include="Paragon\GodSpiritOfWrathDisplay.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Paragon\SuperSpiritOfWrathDisplay.png" />
+    <EmbeddedResource Include="Paragon\GodSpiritOfWrath_Portrait.png" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Paragon\SuperSpiritOfTheForest_Icon.png" />
-    <EmbeddedResource Include="Paragon\SuperSpiritOfWrath_Portrait.png" />
+    <EmbeddedResource Include="Paragon\GodSpiritOfTheForest_Icon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
